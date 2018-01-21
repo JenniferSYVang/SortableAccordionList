@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+$( function() {
+  var dialog, form, itemHead = $("#itemHead"), item = $('#item');
+
+  
+  $("#accordion").accordion({
+        collapsible: true,
+        active: false,
+        height: "fill",
+        header: "h3"
+  }).sortable();
+  
+  
+  
+  var itemHolder = "";
+  
+  $("#addListBtn").click("click", function(){
+  $("#inputList").empty();
+  $("#inputTitle").empty();
+  itemHolder = "";
+  $("#form").show();
+});
+  
+  $("#addHead").click(function(){
+    $("#itemStuff").show();
+    $("#inputTitle").append($("#itemHead").val());
+    
+    $("#addHead").hide();
+    $("#headingInput").hide();
+   
+  });
+  
+  $("#addItemBtn").click(function(){
+      itemHolder += "<li>" + $("#item").val() + "</li>";
+      $("#inputList").append($("#item").val() + "<br/>")
+    $("#addList").show();
+    });
+  
+  $("#addList").click("click", function(){
+    $("#accordion").append("<div><h3>" + $("#inputTitle").text() + "</h3><ul>" + itemHolder + "</ul></div>").accordion("refresh");
+    $("#addHead").show();
+    $("#headingInput").show();
+    $("#form").hide();
+    $("#itemStuff").hide();
+    $("#addList").hide();
+  });
+  
+  $(".close").click("click", function(){
+    $("#form").hide();
+    $("#itemStuff").hide();
+    $("#addList").hide();
+  });
+  
+  dialog = $( "#form" ).dialog({
+      title: "New Item(s)",
+    modal: true,
+      buttons: {
+        "Add Heading": fakeButton,
+       "Cancel": function() {
+          dialog.dialog( "close" );
+        }
+      }
+    });
+  
+} );
+        });
+    </script>
+    
+    <style type="text/css">
+       
+		.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.form-header{
+  padding: 2px 16px;
+  text-align: center;
+}
+#form{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: lightgreen;
+}
+
+input.text{
+  margin-bottom:12px; 
+  width:95%; 
+  padding:.4em;
+}
+
+fieldset{
+  background-color: #fefefe;
+  margin: 3% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 85%;
+  text-align: center;
+}
+
+h3{
+  background-color: lightgreen;
+  border: 1.5px solid darkgreen;
+  padding: 3px;
+  font-weight: solid;
+}
+
+li{
+  font-size: 13pt;
+}
+
+.validate{
+  padding: 10px;
+  font-size: 16pt;
+}
+#inputTitle{
+  border: none;
+}
+
+#addList{
+  display:none;
+}
+
+#itemStuff{
+  display:none;
+}
+
+ul{
+	list-style-type: none;
+}
+
+    </style>
+</head>
+
+<body>
+<h1> Sortable Accordion List </h1>
+
+<h2>Shopping List</h2>
+
+<button id="addListBtn">Add New Catergory !</button>
+
+<div id="form" title="Adding New Category">
+  <div class="form-header">
+  <span class="close">&times;</span> 
+    <h2> New Items to Add</h2>
+	<p class="validate">Fill out the form to add new item or items.</p>
+	
+    <div id="listToAdd">
+	  <h3 id="inputTitle"></h3>
+      <div id="inputList"></div>
+    </div>
+	
+    <input id="addList" value="Add New List to Previous Page" type="button">
+	
+  <form>
+    <fieldset>
+      <div id="headingInput">
+      <label for="itemHead">Category Title:</label>
+      <input type="text" name="itemHead" id="itemHead" value="Pets">
+      <input id="addHead" value="Add Category" type="button" >
+      </div>
+      <div id="itemStuff">
+      <label for="item">Item:</label>
+      <input type="text" name="item" id="item" value="Treats">
+      <input id="addItemBtn" value="Add This Item" type ="button">
+      </div>    
+    </fieldset>
+  </form>
+</div>
+</div>
+
+<div id="accordion">
+  <div>
+  <h3>Beverages</h3>
+  <ul>
+    <li>Coffee</li>
+    <li>Tea</li>
+    <li>Milk</li>
+  </ul>
+  </div>
+  
+  <div>
+  <h3>Snacks</h3>
+  <ul>
+    <li>Chips</li>
+    <li>Salsa</li>
+    <li>Cookies</li>
+  </ul>
+    </div>
+</div>
+
+</body>
+
+</html>
